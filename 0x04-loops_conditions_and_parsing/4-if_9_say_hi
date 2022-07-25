@@ -1,14 +1,13 @@
 #!/usr/bin/env bash
 # Script that displays "Best School" 10 times but display Hi on 9th iteration
 
-i=1
-while ((i<=10)) 
+i=0
+while ((i<10)) 
 do
     if [ $i -eq 9 ]
     then
         echo "Hi"
-    else
-        echo "Best School"
     fi
+    echo "Best School"
     ((i++))
 done
