@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Script that displays "Best School" 10 times but display Hi on 9th iteration
+# Script that displays information about the file school
 
 file="school"
 if [ -e "$file" ]
