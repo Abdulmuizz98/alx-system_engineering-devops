@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# Script that displays "Best School" 10 times but display Hi on 9th iteration
+
+file="school"
+if [ -e "$file" ]
+then
+    echo "school file exists"
+    if [ -z "$file" ]
+    then
+        echo "school file is empty"
+    elif [ -n "$file" ]
+    then
+        echo "school file is not empty"
+    elif [ -f "$file" ]
+    then
+        echo "school is a regular file"
+    fi
+else
+    echo "school file does not exist"
+fi
