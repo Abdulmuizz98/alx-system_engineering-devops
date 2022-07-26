@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# Bash script that does y u no love me
+
+file="myscript.pid"
+echo $$ > $file
+file $file
+rm $file
+# until false;
+# do
+#    echo "To infinity and beyond"
+#    sleep 2
+#    trap "$(echo "I hate the kill command" && rm $file && exit)" SIGTERM
+#    trap 'echo "Y U no love me?!"' SIGINT
+#    trap "$(rm $file && exit )" SIGQUIT
+#done
