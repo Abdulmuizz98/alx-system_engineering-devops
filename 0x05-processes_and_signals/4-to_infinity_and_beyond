@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Bash script that displays list of processes and hierarchy
+#+ of files containing only bash
+
+until false;
+do
+    echo "To infinity and beyond"
+    sleep 2
+done
