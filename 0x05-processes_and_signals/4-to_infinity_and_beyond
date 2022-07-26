@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
-# Bash script that displays list of processes and hierarchy
-#+ of files containing only bash
+# Bash script that sends a signal that terminates
+#+ "4-to_infinity_and_beyond" process
 
-until false;
-do
-    echo "To infinity and beyond"
-    sleep 2
-done
+kill "$(pgrep -f ./4-to_infinity_and_beyond)" 
