@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 # Bash script that displays list of processes and hierarchy
+#+ of files containing only bash
 
-ps auxf
+ps auxf | grep "bash"
