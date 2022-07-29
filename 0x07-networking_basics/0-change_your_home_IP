@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Bash script to change your home IP
+
+cp /etc/hosts ~/hosts.new
+sed -i 's/.*\tlocalhost/127.0.0.2\tlocalhost/' ~/hosts.new 
+echo -e "\n\n8.8.8.8\t\tfacebook.com" >> ~/hosts.new
+cat ~/hosts.new > /etc/hosts
+
+# end of script
