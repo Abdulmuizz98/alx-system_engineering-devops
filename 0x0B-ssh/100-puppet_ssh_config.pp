@@ -1,14 +1,13 @@
 # configure ssh client
-$str = "Host *
-  PasswordAuthentication no
-  IdentityFile ~/.ssh/school 
+$str = "Host * \n \tPasswordAuthentication no \n \tIdentityFile ~/.ssh/school 
 "
+$user = $facts['identity']['user']
 
 file { '~/.ssh/config':
     ensure  => present,
-    path    => '/home/ubuntu/.ssh/config',
+    path    => "/home/${user}/.ssh/config",
     mode    => '0744',
-    owner   => 'ubuntu',
-    group   => 'ubuntu',
+    owner   => $user,
+    group   => $user,
     content => $str,
 }
