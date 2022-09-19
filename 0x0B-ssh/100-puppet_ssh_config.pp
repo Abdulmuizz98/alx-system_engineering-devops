@@ -6,7 +6,7 @@ $str = "Host *
 
 file { '~/.ssh/config':
     ensure  => present,
-    path    => '~/.ssh/config',
+    path    => '/home/ubuntu/.ssh/config',
     mode    => '0744',
     owner   => 'ubuntu',
     group   => 'ubuntu',
