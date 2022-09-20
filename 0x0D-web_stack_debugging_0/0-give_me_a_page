@@ -1,1 +1,4 @@
+#!/usr/bin/env bash
+# A script that debugs an Apache server
+
 service apache2 start
