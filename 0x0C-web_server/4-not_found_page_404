@@ -23,7 +23,7 @@ echo "Hello World!" > /var/www/html/index.html
 sed -i 's/^\tlisten\s[[:digit:]]\+\s/\tlisten 80 /g' /etc/nginx/sites-enabled/default
 sed -i 's/^\tlisten\s\[::\]:[[:digit:]]\+\s/\tlisten [::]:80 /g' /etc/nginx/sites-enabled/default
 
-echo "Configuring redirec_me page redirection ..."
+echo "Configuring redirect_me page redirection ..."
 # redirect the page /redirect_me
 new_line="\tlocation / {\n\t\trewrite ^/redirect_me/$ https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;\n"
 sed -i "s~^\tlocation / {~$new_line~g" /etc/nginx/sites-enabled/default
@@ -33,7 +33,7 @@ echo "Configuring custom 404 Not found page ..."
 echo "Ceci n'est pas une page" > /usr/share/nginx/html/custom_404.html
 echo "" > /usr/share/nginx/html/custom_404.html
 
-cust_line="\tserver_name _;\n\terror_page 404 /custom_404.html;\n\tlocation = /custom_404.html {\n\t\trroot /usr/share/nginx/html;\n\t\tinternal;\n\t}"
+cust_line="\tserver_name _;\n\terror_page 404 /custom_404.html;\n\tlocation = /custom_404.html {\n\t\troot /usr/share/nginx/html;\n\t\tinternal;\n\t}"
 sed -i "s~^\tserver_name _;~$cust_line~g" /etc/nginx/sites-enabled/default
 
 service nginx restart

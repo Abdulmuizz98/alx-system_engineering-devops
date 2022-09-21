@@ -22,6 +22,7 @@ echo "Hello World!" > /var/www/html/index.html
 sed -i 's/^\tlisten\s[[:digit:]]\+\s/\tlisten 80 /g' /etc/nginx/sites-enabled/default
 sed -i 's/^\tlisten\s\[::\]:[[:digit:]]\+\s/\tlisten [::]:80 /g' /etc/nginx/sites-enabled/default
 
+echo "Configuring redirect_me page redirection ..."
 # redirect the page /redirect_me
 new_line="\tlocation / {\n\t\trewrite ^/redirect_me/$ https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;\n"
 sed -i "s~^\tlocation / {~$new_line~g" /etc/nginx/sites-enabled/default
