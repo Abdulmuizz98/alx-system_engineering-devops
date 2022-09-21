@@ -30,7 +30,8 @@ sed -i "s~^\tlocation / {~$new_line~g" /etc/nginx/sites-enabled/default
 
 echo "Configuring custom 404 Not found page ..."
 # configure not found page
-echo "Ceci n'est pas une page\n" > /usr/share/nginx/html/custom_404.html
+echo "Ceci n'est pas une page" > /usr/share/nginx/html/custom_404.html
+echo "" > /usr/share/nginx/html/custom_404.html
 
 cust_line="\tserver_name _;\n\terror_page 404 /custom_404.html;\n\tlocation = /custom_404.html {\n\t\trroot /usr/share/nginx/html;\n\t\tinternal;\n\t}"
 sed -i "s~^\tserver_name _;~$cust_line~g" /etc/nginx/sites-enabled/default
