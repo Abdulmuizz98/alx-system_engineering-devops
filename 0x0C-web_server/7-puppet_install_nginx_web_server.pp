@@ -5,19 +5,19 @@ include stdlib
 # update and install nginx
 
 exec { 'apt-get update':
-  command => "/usr/bin/apt-get update",
+  command => '/usr/bin/apt-get update',
 }
 
 package { 'Install nginx':
-  ensure   => installed,
-  name     => 'nginx',
-  require  => Exec['apt-get update'],
+  ensure  => installed,
+  name    => 'nginx',
+  require => Exec['apt-get update'],
 
 }
 
 # start nginx service
 service { 'start nginx service':
-  ensure   => running,
+  ensure  => running,
   #enable   => 'true',
   require => Package['Install nginx'],
   start   => 'service nginx start',
