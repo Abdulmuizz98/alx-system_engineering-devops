@@ -28,6 +28,17 @@ service { 'start nginx service':
   #iprovider => 'service',
 }
 
+# create index page with string hello world!
+file { 'Create index.html':
+  ensure  => present,
+  notify  => Service['start nginx service'],
+  path    => '/var/www/html/index.html',
+  mode    => '0744',
+  owner   => $user,
+  group   => $uer,
+  content => 'Hello World!\n',
+}
+
 # ensure listening on port 80
 file_line { 'Listen on port 80 ipv4':
   ensure  => present,
@@ -68,7 +79,7 @@ file { 'Create custom_404.html':
   mode    => '0744',
   owner   => $user,
   group   => $uer,
-  content => "Ceci n'est pas une page.\n",
+  content => "Ceci n'est pas une page.\n\n",
 }
 
 file_line { 'Configure custom 404 page':
