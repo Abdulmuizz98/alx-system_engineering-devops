@@ -36,7 +36,7 @@ file { 'Create index.html':
   mode    => '0744',
   owner   => $user,
   group   => $uer,
-  content => 'Hello World!\n',
+  content => "Hello World!\n",
 }
 
 # ensure listening on port 80
