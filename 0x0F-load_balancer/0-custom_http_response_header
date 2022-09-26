@@ -1,6 +1,42 @@
 #!/usr/bin/env bash
 #  A Bash Script that installs and configures
-#+ Nginx so that its HTTP response contains a custom header (on web-01 and web-02)
+#+ an nginx server
+#+ then configures redirection for the page redirect_me/
+#+ then configures a custom 404 page
+
+echo "Initiating installation and web server start-up..."
+# update and install nginx
+apt -y update
+apt install -y nginx
+
+# adjust ufw
+ufw allow 'Nginx HTTP'
+
+# start nginx service
+service nginx start
+
+echo "Configuring web server to serve files..."
+# create index page with string
+echo "Hello World!" > /var/www/html/index.html
+# ensure serving on port 80
+#sed -i 's/80/8080/g' /etc/nginx/sites-enabled/default
+sed -i 's/^\tlisten\s[[:digit:]]\+\s/\tlisten 80 /g' /etc/nginx/sites-enabled/default
+sed -i 's/^\tlisten\s\[::\]:[[:digit:]]\+\s/\tlisten [::]:80 /g' /etc/nginx/sites-enabled/default
+
+echo "Configuring redirect_me page redirection ..."
+# redirect the page /redirect_me
+new_line="\tlocation / {\n\t\trewrite ^/redirect_me(.*)$ https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;\n"
+sed -i "s~^\tlocation / {~$new_line~g" /etc/nginx/sites-enabled/default
+
+echo "Configuring custom 404 Not found page ..."
+# configure not found page
+echo "Ceci n'est pas une page" > /usr/share/nginx/html/custom_404.html
+echo "" >> /usr/share/nginx/html/custom_404.html
+
+cust_line="\tserver_name _;\n\terror_page 404 /custom_404.html;\n\tlocation = /custom_404.html {\n\t\troot /usr/share/nginx/html;\n\t\tinternal;\n\t}"
+sed -i "s~^\tserver_name _;~$cust_line~g" /etc/nginx/sites-enabled/default
+
+# Configure Nginx so that its HTTP response contains a custom header (on web-01 and web-02)
 #+ The name of the custom HTTP header must be X-Served-By
 #+ The value of the custom HTTP header must be the hostname of the server Nginx is running on 
 
