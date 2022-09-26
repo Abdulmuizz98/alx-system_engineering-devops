@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+#  A Bash Script that installs and configures
+#+ Nginx so that its HTTP response contains a custom header (on web-01 and web-02)
+#+ The name of the custom HTTP header must be X-Served-By
+#+ The value of the custom HTTP header must be the hostname of the server Nginx is running on 
+
+echo "Configure Nginx so that its HTTP response contains a custom header..."
+
+header_line="\tserver_name _;\n\tadd_header X-Served-By $(hostname);\n"
+sed -i "s~^\tserver_name _;~$header_line~g" /etc/nginx/sites-enabled/default
+
+service nginx restart
