@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Install and configure HAproxy on a server.
 
 apt-get install  -y --no-install-recommends software-properties-common
