@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Install and configure HAproxy on a server.
 
+apt-get -y update
 apt-get install  -y --no-install-recommends software-properties-common
 add-apt-repository -y ppa:vbernat/haproxy-2.6
 apt-get install -y haproxy=2.6.\*
