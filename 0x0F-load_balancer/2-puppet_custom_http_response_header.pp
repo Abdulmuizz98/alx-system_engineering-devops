@@ -83,15 +83,14 @@ file { 'Create custom_404.html':
   content => "Ceci n'est pas une page.\n\n",
 }
 
-$hostname = $facts['networking']['hostname']
-$header_line="\tserver_name _;\n\tadd_header X-Served-By $(hostname);\n"
+$hname = $facts['networking']['hostname']
 
 file_line { 'Configure custom 404 page':
   ensure  => present,
   notify  => Service['start nginx service'],
   path    => '/etc/nginx/sites-enabled/default',
   match   => '^\tserver_name\ _;',
-  line    => "\tserver_name _;\n\tadd_header X-Served-By ${hostname};\n\n\terror_page 404 /custom_404.html;\n\tlocation = \
+  line    => "\tserver_name _;\n\tadd_header X-Served-By ${hname};\n\n\terror_page 404 /custom_404.html;\n\tlocation = \
 /custom_404.html {\n\t\troot /usr/share/nginx/html;\n\t\tinternal;\n\t}",
   replace => true,
 }
