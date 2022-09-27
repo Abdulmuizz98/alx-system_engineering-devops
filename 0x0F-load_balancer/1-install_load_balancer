@@ -9,18 +9,46 @@ apt-get install -y haproxy=2.6.\*
 DOMAIN='44.200.175.236'
 INIT='/etc/default/haproxy'
 CONFIG='/etc/haproxy/haproxy.cfg'
+HAPROXY_LB_CONFIG=\
+"
+#--$DOMAIN-params-begin--
+backend $DOMAIN-backend
+	balance roundrobin
+	server 9605-web-01 3.236.227.164:80 check
+	server 9605-web-02 3.236.104.58:80 check
+frontend $DOMAIN-frontend
+	bind *:80
+	mode http
+	default_backend $DOMAIN-backend
+#--$DOMAIN-params-end--
+"
 
 [ -f "$INIT" ] || touch "$INIT"
 [ -f "$CONFIG" ] || touch "$CONFIG"
 
+CONFIG_WORDS=$(grep -Eco "$DOMAIN-backend" < $CONFIG)
+
 if [ "$(grep -Eco '^ENABLED=[01]$' < $INIT)" -gt 0 ]; then
 	sed -i 's/^ENABLED=0$/ENABLED=1/' "$INIT"
 else
-	echo 'ENABLED=1' >> "$INIT"
+	echo 'ENABLED=1' >> $INIT
 fi
 
-echo -e "\nfrontend $DOMAIN-frontend\n\tbind *:80\n\tmode http\n\tdefault_backend $DOMAIN-backend" >> "$CONFIG" # frontend config
-echo -e "\nbackend $DOMAIN-backend\n\tbalance roundrobin\n\tserver 9605-web-01 3.236.227.164:80 check\n\tserver 9605-web-02 3.236.104.58:80 check" >> "$CONFIG" # backend config
+if [ "$CONFIG_WORDS" -eq 0 ]; then
+	echo -e "$HAPROXY_LB_CONFIG" >> $CONFIG
+else
+	start_tkn="#--$DOMAIN-params-begin--"
+	end_tkn="#--$DOMAIN-params-end--"
+	a=$(grep -onE "$start_tkn" < "$CONFIG" | cut -d : -f1)
+	b=$(grep -onE "$end_tkn" < "$CONFIG" | cut -d : -f1)
+	a=$((a - 1))
+	b=$((b + 1))
+	sed -i "$a,$b"d "$CONFIG"
+	echo -en "$HAPROXY_LB_CONFIG" >> $CONFIG
+fi
 
-#restart haproxy service
-service haproxy restart
+if [ "$(pgrep -c haproxy)" -le 0 ]; then
+	service haproxy start
+else
+	service haproxy restart
+fi
