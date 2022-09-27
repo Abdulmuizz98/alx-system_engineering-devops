@@ -6,9 +6,21 @@ apt-get install  -y --no-install-recommends software-properties-common
 add-apt-repository -y ppa:vbernat/haproxy-2.6
 apt-get install -y haproxy=2.6.\*
 
-echo "ENABLED=1" >> /etc/default/haproxy
-echo -e "\nfrontend http\n\tbind *:80\n\tmode http\n\tdefault_backend web-backend" >> /etc/haproxy/haproxy.cfg # frontend config
-echo -e "\nbackend web-backend\n\tbalance roundrobin\n\tserver 9605-web-02 3.236.227.164:80 check\n\tserver 9605-web-02 3.236.104.58:80 check" >> /etc/haproxy/haproxy.cfg # backend config
+DOMAIN='44.200.175.236'
+INIT='/etc/default/haproxy'
+CONFIG='/etc/haproxy/haproxy.cfg'
+
+[ -f "$INIT" ] || touch "$INIT"
+[ -f "$CONFIG" ] || touch "$CONFIG"
+
+if [ "$(grep -Eco '^ENABLED=[01]$' < $INIT)" -gt 0 ]; then
+	sed -i 's/^ENABLED=0$/ENABLED=1/' "$INIT"
+else
+	echo 'ENABLED=1' >> "$INIT"
+fi
+
+echo -e "\nfrontend $DOMAIN-frontend\n\tbind *:80\n\tmode http\n\tdefault_backend $DOMAIN-backend" >> "$CONFIG" # frontend config
+echo -e "\nbackend $DOMAIN-backend\n\tbalance roundrobin\n\tserver 9605-web-01 3.236.227.164:80 check\n\tserver 9605-web-02 3.236.104.58:80 check" >> "$CONFIG" # backend config
 
 #restart haproxy service
 service haproxy restart
