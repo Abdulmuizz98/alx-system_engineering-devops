@@ -4,15 +4,17 @@ a Python script that, using the JSONPlaceholder  REST API,
 for a given employee ID, returns information about his/her
 TODO list progress.
 """
-if __name__ == "__main__":
-    from sys import argv
-    from requests import get
+import sys
+import requests
 
-    user_endpoint = f"https://jsonplaceholder.typicode.com/users/{argv[1]}/"
+if __name__ == "__main__":
+
+    user_endpoint = \
+            (f"https://jsonplaceholder.typicode.com/users/{sys.argv[1]}/")
     todo_endpoint = user_endpoint + "todos"
 
-    req_user = get(user_endpoint).json()  # dict
-    req_todos = get(todo_endpoint).json()  # list
+    req_user = requests.get(user_endpoint).json()  # dict
+    req_todos = requests.get(todo_endpoint).json()  # list
 
     done = [todo for todo in req_todos if todo.get("completed")]
 
