@@ -5,8 +5,8 @@ for a given employee ID, returns information about his/her
 TODO list progress.
 """
 if __name__ == "__main__":
-    from requests import get
     from sys import argv
+    from requests import get
 
     user_endpoint = f"https://jsonplaceholder.typicode.com/users/{argv[1]}/"
     todo_endpoint = user_endpoint + "todos"
