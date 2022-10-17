@@ -7,10 +7,14 @@ TODO list progress.
 import requests
 import sys
 
+
+API_URL = "https://jsonplaceholder.typicode.com"
+"""REST API url"""
+
+
 if __name__ == "__main__":
 
-    user_endpoint = \
-            (f"https://jsonplaceholder.typicode.com/users/{sys.argv[1]}/")
+    user_endpoint = f"{API_URL}/users/{sys.argv[1]}/"
     todo_endpoint = user_endpoint + "todos"
 
     req_user = requests.get(user_endpoint).json()  # dict
