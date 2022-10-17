@@ -1,7 +1,9 @@
 #!/usr/bin/python3
-''' A Python script that, using the JSONPlaceholder  REST API,
-for a given employee ID, returns information about his/her
-TODO list progress. '''
+"""
+Using https://jsonplaceholder.typicode.com
+returns info about employee TODO progress
+Implemented using recursion
+"""
 import requests
 import sys
 
