@@ -1,9 +1,7 @@
 #!/usr/bin/python3
-"""
-A Python script that, using the JSONPlaceholder  REST API,
+''' A Python script that, using the JSONPlaceholder  REST API,
 for a given employee ID, returns information about his/her
-TODO list progress
-"""
+TODO list progress. '''
 import requests
 import sys
 
