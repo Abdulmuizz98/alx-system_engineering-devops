@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """
 a Python script that, using the JSONPlaceholder  REST API,
 for a given employee ID, returns information about his/her
