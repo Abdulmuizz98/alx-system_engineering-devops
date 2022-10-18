@@ -34,7 +34,7 @@ if __name__ == '__main__':
            # for todo_done in todos_done:
             #    print('\t {}'.format(todo_done.get('title')))
             """
-            with open("2.csv", 'w', encoding='utf-8') as f:
+            with open(f"{id}.csv", 'w', encoding='utf-8') as f:
                 writer = csv.writer(f, quotechar='"', quoting=csv.QUOTE_ALL)
                 for todo in todos:
                     writer.writerow([id, user_name, todo.get("completed"),
