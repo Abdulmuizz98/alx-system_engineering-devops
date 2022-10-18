@@ -19,9 +19,9 @@ if __name__ == '__main__':
     todos_res = requests.get('{}/todos'.format(API)).json()
     dic = {}
 
-    for id in range(1, len(users_res)):
-        todos = list(filter(lambda x: x.get('userId') == id, todos_res))
-        user_name = users_res[id-1].get('username')
+    for id in range(0, len(users_res)):
+        todos = list(filter(lambda x: x.get('userId') == id+1, todos_res))
+        user_name = users_res[id].get('username')
 
         for item in todos:
             item["task"] = item["title"]
@@ -30,7 +30,7 @@ if __name__ == '__main__':
             del item["id"]
             item["username"] = user_name
 
-        dic[id] = todos
+        dic[id+1] = todos
 
     res_json = json.dumps(dic)
 
