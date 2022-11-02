@@ -1,4 +1,4 @@
-#!usr/bin/python3
+#!/usr/bin/python3
 """
     Scipt that requests the reddit api that finds the number
     of subs of a subreddit
