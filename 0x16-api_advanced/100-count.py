@@ -34,9 +34,8 @@ def count_words(subreddit, word_list, after=None, dic={}):
         for word in word_list:
             dic[word.lower()] += words.count(word)
 
-    if after:
-        return count_words(subreddit, word_list, after, dic)
-    else:
+    if !after:
         dic = dict(sorted(dic.items(), key=lambda x:x[1], reverse=True))
         {print(k + ":", v) for k, v in dic.items() if v > 0}
         return
+    return count_words(subreddit, word_list, after, dic)
