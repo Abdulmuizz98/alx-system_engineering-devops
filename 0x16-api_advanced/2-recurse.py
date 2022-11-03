@@ -1,8 +1,6 @@
 #!/usr/bin/python3
 """
-    Contains a function that quries the Reddit API and prints
-    the titles of the first 10 hot posts listed for a given
-    subreddit.
+    Contains a function recurse
 """
 
 
@@ -11,8 +9,8 @@ from requests import get
 
 def recurse(subreddit, hot_list=[], after=None):
     """
-    function that quries the Reddit API and prints
-    the titles of the first 10 hot posts listed for a given
+    function that quries the Reddit API and returns all
+    the titles of hot articles listed for a given
     subreddit.
     """
     header = {'User-Agent': 'my-app/0.0.1'}
